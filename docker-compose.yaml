@@ -1,0 +1,28 @@
+version: "3.8"
+services:
+  db:
+    image: mysql:5.7
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: dreamkast
+      MYSQL_USER: user
+      MYSQL_PASSWORD: password
+      TZ: 'Asia/Tokyo'
+    command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+    volumes:
+      - mysql-data:/var/lib/mysql
+    ports:
+      - "3306:3306"
+  redis:
+    image: "redis:5"
+    volumes:
+      - redis-data:/data
+    ports:
+      - "6379:6379"
+volumes:
+  mysql-data:
+  bundle:
+  node-modules:
+  packs:
+  vendor:
+  redis-data:
