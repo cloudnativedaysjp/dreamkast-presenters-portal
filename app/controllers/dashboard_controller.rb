@@ -1,15 +1,9 @@
-class EventController < ApplicationController
+class DashboardController < ApplicationController
   include Secured
   before_action :set_profile
 
-  def logged_in_using_omniauth?
-    if session[:userinfo].present?
-      @current_user = session[:userinfo]
-    end
-  end
-
   def show
-
+    @conference = Conference.find_by(abbr: params[:event])
   end
 
   private

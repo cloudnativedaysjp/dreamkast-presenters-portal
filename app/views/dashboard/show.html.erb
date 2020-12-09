@@ -1,1 +1,7 @@
 Dashboard!!!
+
+<h1><%= @conference.name %></h1>
+
+Welcome, <%= @profile.first_name %>
+
+<%= button_to 'Logout', '/logout', {method: :get, class: "btn btn-primary btn-xl inline" } %>

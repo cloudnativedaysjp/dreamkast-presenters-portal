@@ -4,9 +4,9 @@ class EventController < ApplicationController
 
   def show
     @conference = Conference.find_by(abbr: params[:event])
-    # if session[:userinfo].present?
-    #   redirect_to profile_path
-    # end
+    if session[:userinfo].present?
+      redirect_to dashboard_path
+    end
   end
 
   def logged_in_using_omniauth?
