@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+
+<header class="masthead">
+  <div class="container h-100">
+    <div class="row h-100 align-items-center justify-content-center text-center">
+      <% @conferences.each do |conference| %>
+        <%= link_to "/#{conference.abbr}" do %>
+          <div class="col-lg-12 align-self-end">
+            <h1 class="text-uppercase font-weight-bold"><%= conference.name %></h1>
+          </div>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+</header>

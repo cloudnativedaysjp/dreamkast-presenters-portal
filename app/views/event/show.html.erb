@@ -1,0 +1,6 @@
+
+<h1><%= @conference.name %></h1>
+<% unless @current_user %>
+  <%= button_to '参加申し込み / ログイン', '/auth/auth0', {method: :post, class: "btn btn-primary btn-xl inline" } %>
+<% end %>
+<%= button_to 'Logout', '/logout', {method: :get, class: "btn btn-primary btn-xl inline" } %>
