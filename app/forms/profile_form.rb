@@ -13,7 +13,6 @@ class ProfileForm
     attr_accessor :talks
 
     def talks
-      puts "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAa"
       @talks ||= [Talk.new]
     end
 
@@ -33,10 +32,8 @@ class ProfileForm
           params.delete(:_destroy)
           talk = Talk.new(params)
           talk.save!
-          p "AAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-          p @profile
           begin
-            p rtalk = RegisteredTalk.new(talk_id: talk.id, profile_id: @profile.id)
+            rtalk = RegisteredTalk.new(talk_id: talk.id, profile_id: @profile.id)
             rtalk.save!
           rescue => e
             puts e
@@ -85,7 +82,7 @@ class ProfileForm
 
   def default_attributes
     puts "default_attributes"
-    p r = {
+    r = {
       last_name: profile.last_name,
       first_name: profile.first_name,
       email: profile.email,

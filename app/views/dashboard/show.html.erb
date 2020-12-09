@@ -5,3 +5,5 @@ Dashboard!!!
 Welcome, <%= @profile.first_name %>
 
 <%= button_to 'Logout', '/logout', {method: :get, class: "btn btn-primary btn-xl inline" } %>
+
+<%= link_to 'Edit Profile', edit_profile_path(id: @profile.id) %>

@@ -14,6 +14,7 @@ class ProfilesController < ApplicationController
   # GET /profiles/1.json
   def show
     @profile = Profile.find_by(id: params[:id])
+    @conference = Conference.find_by(abbr: params[:event])
   end
 
   # GET /profiles/new
@@ -23,6 +24,7 @@ class ProfilesController < ApplicationController
 
   # GET /profiles/1/edit
   def edit
+    @conference = Conference.find_by(abbr: params[:event])
   end
 
   # POST /profiles
@@ -45,8 +47,10 @@ class ProfilesController < ApplicationController
   # PATCH/PUT /profiles/1.json
   def update
     respond_to do |format|
+      @conference
       if @profile.update(profile_params)
-        format.html { redirect_to @profile, notice: 'Profile was successfully updated.' }
+        p params
+        format.html { redirect_to profile_path(id: @profile.id), notice: 'Profile was successfully updated.' }
         format.json { render :show, status: :ok, location: @profile }
       else
         format.html { render :edit }
@@ -66,17 +70,20 @@ class ProfilesController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_profile
-      @profile = Profile.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def profile_params
-      p params
-      params.require(:profile).permit(:first_name,
-                                      :last_name,
-                                      :email,
-                                      talks_attributes: [:id, :title, :abstract])
-    end
+  def set_current_profile
+    @profile = Profile.find_by(email: @current_user[:info][:email])
+  end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_profile
+    @profile = Profile.find(params[:id])
+  end
+
+  # Only allow a list of trusted parameters through.
+  def profile_params
+    params.require(:profile).permit(:first_name,
+                                    :last_name,
+                                    :email,
+                                    talks_attributes: [:id, :title, :abstract])
+  end
 end

@@ -9,9 +9,7 @@ module Secured
   # If user already logged in by omniauth, set session information to @current_user
   # If user doesn't logged in, redirect to login page
   def logged_in_using_omniauth?
-    puts "logged_in_using_omniauth?"
     if session[:userinfo].present?
-      puts "user present"
       @current_user = session[:userinfo]
     else
       redirect_to "/#{params[:event]}"
@@ -19,13 +17,8 @@ module Secured
   end
 
   def new_user?
-    puts "new_user?"
-    puts "session[:userinfo]  #{session[:userinfo]}"
-    puts "@current_user: #{@current_user}"
     if session[:userinfo].present? && !Profile.find_by(email: @current_user[:info][:email])
-      puts "user is present and profile isn't exists"
       unless ["profiles"].include?(controller_name)
-        puts "refirect registration"
         redirect_to "/#{params[:event]}/registration"
       end
     end
