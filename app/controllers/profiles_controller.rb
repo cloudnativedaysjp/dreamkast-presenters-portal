@@ -1,29 +1,34 @@
+class Forbidden < ActionController::ActionControllerError; end
+
 class ProfilesController < ApplicationController
   include Secured
 
-  before_action :set_current_profile, only: [:edit, :update, :destroy]
-  before_action :is_admin?, :find_profile, only: [:destroy_id, :set_role]
-
   # GET /profiles
   # GET /profiles.json
-  def index
-    @profiles = Profile.all
-  end
+  # def index
+  #   @profiles = Profile.all
+  # end
 
   # GET /profiles/1
   # GET /profiles/1.json
   def show
     @profile = Profile.find_by(id: params[:id])
+    authorize @profile
+
     @conference = Conference.find_by(abbr: params[:event])
   end
 
   # GET /profiles/new
   def new
     @profile = Profile.new
+    @conference = Conference.find_by(abbr: params[:event])
   end
 
   # GET /profiles/1/edit
   def edit
+    @profile = Profile.find_by(id: params[:id])
+    authorize @profile
+
     @conference = Conference.find_by(abbr: params[:event])
   end
 
@@ -31,10 +36,11 @@ class ProfilesController < ApplicationController
   # POST /profiles.json
   def create
     @profile = Profile.new(profile_params)
+    @conference = Conference.find_by(abbr: params[:event])
 
     respond_to do |format|
       if @profile.save
-        format.html { redirect_to profile_path(id: @profile.id), notice: 'Profile was successfully created.' }
+        format.html { redirect_to "/#{@conference.abbr}", notice: 'Profile was successfully created.' }
         format.json { render :show, status: :created, location: @profile }
       else
         format.html { render :new }
@@ -46,10 +52,11 @@ class ProfilesController < ApplicationController
   # PATCH/PUT /profiles/1
   # PATCH/PUT /profiles/1.json
   def update
+    @profile = Profile.find(params[:id])
+    authorize @profile
+
     respond_to do |format|
-      @conference
       if @profile.update(profile_params)
-        p params
         format.html { redirect_to profile_path(id: @profile.id), notice: 'Profile was successfully updated.' }
         format.json { render :show, status: :ok, location: @profile }
       else
@@ -63,6 +70,8 @@ class ProfilesController < ApplicationController
   # DELETE /profiles/1.json
   def destroy
     @profile.destroy
+    authorize @profile
+
     respond_to do |format|
       format.html { redirect_to profiles_url, notice: 'Profile was successfully destroyed.' }
       format.json { head :no_content }
@@ -71,12 +80,10 @@ class ProfilesController < ApplicationController
 
   private
 
-  def set_current_profile
-    @profile = Profile.find_by(email: @current_user[:info][:email])
-  end
-  # Use callbacks to share common setup or constraints between actions.
-  def set_profile
-    @profile = Profile.find(params[:id])
+  def pundit_user
+    if @current_user
+      Profile.find_by(email: @current_user[:info][:email])
+    end
   end
 
   # Only allow a list of trusted parameters through.
