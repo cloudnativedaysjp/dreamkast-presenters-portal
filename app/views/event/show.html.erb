@@ -1,5 +1,11 @@
-
 <h1><%= @conference.name %></h1>
+
+<% if logged_in? && registered? %>
+  Welcome, <%= @profile.first_name %>
+
+  <%= link_to 'Edit Profile', edit_profile_path(id: @profile.id) %>
+<% end %>
+
 <% unless @current_user %>
   <%= button_to '参加申し込み / ログイン', '/auth/auth0', {method: :post, class: "btn btn-primary btn-xl inline" } %>
 <% end %>

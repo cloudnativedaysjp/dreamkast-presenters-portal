@@ -2,41 +2,37 @@ module Secured
   extend ActiveSupport::Concern
 
   included do
-    before_action :logged_in_using_omniauth?, :new_user?
-    helper_method :admin?, :speaker?
+    before_action :logged_in_using_omniauth?, :set_profile
   end
 
   # If user already logged in by omniauth, set session information to @current_user
   # If user doesn't logged in, redirect to login page
   def logged_in_using_omniauth?
-    if session[:userinfo].present?
+    if logged_in?
       @current_user = session[:userinfo]
-    else
-      redirect_to "/#{params[:event]}"
+    end
+
+    if !logged_in? && ["profiles"].include?(controller_name)
+      redirect_to "/auth/auth0"
+    end
+
+    if new_user? #&& !["profiles"].include?(controller_name)
+      redirect_to "/#{params[:event]}/registration"
+    end
+  end
+
+  def logged_in?
+    session[:userinfo].present?
+  end
+
+  def set_profile
+    if @current_user
+      @profile = Profile.find_by(email: @current_user[:info][:email])
     end
   end
 
   def new_user?
-    if session[:userinfo].present? && !Profile.find_by(email: @current_user[:info][:email])
-      unless ["profiles"].include?(controller_name)
-        redirect_to "/#{params[:event]}/registration"
-      end
-    end
-  end
-
-  def admin?
-    @current_user[:extra][:raw_info]["https://cloudnativedays.jp/roles"].include?("CNDT2020-Admin")
-  end
-
-  def speaker?
-    @current_user[:extra][:raw_info]["https://cloudnativedays.jp/roles"].include?("CNDT2020-Speaker")
-  end
-
-  def is_admin?
-    # respond_to do |format|
-    #   format.html { redirect_to controller: "track", action: "show", id: 1 }
-    #   format.json { render json: "Forbidden", status: :forbidden }
-    # end
+    session[:userinfo].present? && !Profile.find_by(email: @current_user[:info][:email])
   end
 end
 
