@@ -4,6 +4,7 @@ FactoryBot.define do
     # sub { 'aaa' }
     email { 'foo@example.com' }
     name { 'Alice' }
+    conference_id { 1 }
     # industry_id { '1' }
     # occupation { 'aaa' }
     # company_name { 'aa' }
