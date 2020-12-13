@@ -1,13 +1,14 @@
-class ProfileForm
+class SpeakerForm
   include ActiveModel::Model
   include ActiveModel::Attributes
   include ActiveModel::Validations
 
-  attr_accessor :last_name,
-                :first_name,
-                :email
+  attr_accessor :name,
+                :email,
+                :sub,
+                :talks
 
-  delegate :persisted?, to: :profile
+  delegate :persisted?, to: :speaker
 
   concerning :TalksBuilder do
     attr_accessor :talks
@@ -17,15 +18,15 @@ class ProfileForm
     end
 
     def talks_attributes=(attributes)
-       @talks ||= []
+      @talks ||= []
       attributes.each do |_i, params|
         if params.key?(:id)
           if params[:_destroy] == "1"
-            image = @profile.talks.find(params[:id])
+            image = @speaker.talks.find(params[:id])
             image.destroy
           else
             params.delete(:_destroy)
-            image = @profile.talks.find(params[:id])
+            image = @speaker.talks.find(params[:id])
             image.update(params)
           end
         else
@@ -33,7 +34,7 @@ class ProfileForm
           talk = Talk.new(params)
           talk.save!
           begin
-            rtalk = RegisteredTalk.new(talk_id: talk.id, profile_id: @profile.id)
+            rtalk = RegisteredTalk.new(talk_id: talk.id, speaker_id: @speaker.id)
             rtalk.save!
           rescue => e
             puts e
@@ -47,21 +48,21 @@ class ProfileForm
     end
   end
 
-  def initialize(attributes = nil, profile: Profile.new)
-    @profile = profile
+  def initialize(attributes = nil, speaker: Speaker.new)
+    @speaker = speaker
     attributes ||= default_attributes
     super(attributes)
   end
 
-  def profile
-    @profile
+  def speaker
+    @speaker
   end
 
   def save
     return if invalid?
 
     ActiveRecord::Base.transaction do
-      profile.update!(last_name: last_name, first_name: first_name, email: email)
+      speaker.update!(name: name, sub: sub, email: email)
     end
   rescue => e
     puts e
@@ -69,23 +70,24 @@ class ProfileForm
   end
 
   def to_model
-    profile
+    speaker
   end
 
   def load
-    @talks = @profile.talks
+    @talks = @speaker.talks
+    @sub = @speaker.sub
+    @email = @speaker.email
   end
 
-  attr_reader :profile
+  attr_reader :speaker
 
   private
 
   def default_attributes
-    puts "default_attributes"
-    r = {
-      last_name: profile.last_name,
-      first_name: profile.first_name,
-      email: profile.email,
+    {
+      name: speaker.name,
+      email: speaker.email,
+      sub: speaker.sub,
       talks: talks
     }
   end

@@ -17,7 +17,7 @@ class RegisteredTalksControllerTest < ActionDispatch::IntegrationTest
 
   test "should create registered_talk" do
     assert_difference('RegisteredTalk.count') do
-      post registered_talks_url, params: { registered_talk: { profile_id: @registered_talk.profile_id, talk_id: @registered_talk.talk_id } }
+      post registered_talks_url, params: { registered_talk: { speaker_id: @registered_talk.speaker_id, talk_id: @registered_talk.talk_id } }
     end
 
     assert_redirected_to registered_talk_url(RegisteredTalk.last)
@@ -34,7 +34,7 @@ class RegisteredTalksControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update registered_talk" do
-    patch registered_talk_url(@registered_talk), params: { registered_talk: { profile_id: @registered_talk.profile_id, talk_id: @registered_talk.talk_id } }
+    patch registered_talk_url(@registered_talk), params: { registered_talk: { speaker_id: @registered_talk.speaker_id, talk_id: @registered_talk.talk_id } }
     assert_redirected_to registered_talk_url(@registered_talk)
   end
 

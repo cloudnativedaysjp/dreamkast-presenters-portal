@@ -14,7 +14,7 @@
   <tbody>
     <% @registered_talks.each do |registered_talk| %>
       <tr>
-        <td><%= registered_talk.profile_id %></td>
+        <td><%= registered_talk.speaker_id %></td>
         <td><%= registered_talk.talk_id %></td>
         <td><%= link_to 'Show', registered_talk %></td>
         <td><%= link_to 'Edit', edit_registered_talk_path(registered_talk) %></td>

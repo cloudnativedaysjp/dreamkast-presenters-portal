@@ -14,7 +14,7 @@ class RegisteredTalksTest < ApplicationSystemTestCase
     visit registered_talks_url
     click_on "New Registered Talk"
 
-    fill_in "Profile", with: @registered_talk.profile_id
+    fill_in "Spea", with: @registered_talk.speaker_id
     fill_in "Talk", with: @registered_talk.talk_id
     click_on "Create Registered talk"
 
@@ -26,7 +26,7 @@ class RegisteredTalksTest < ApplicationSystemTestCase
     visit registered_talks_url
     click_on "Edit", match: :first
 
-    fill_in "Profile", with: @registered_talk.profile_id
+    fill_in "Speaker", with: @registered_talk.speaker_id
     fill_in "Talk", with: @registered_talk.talk_id
     click_on "Update Registered talk"
 

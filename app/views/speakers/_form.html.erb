@@ -1,0 +1,18 @@
+<%= form_with(url: speaker_url, model: @speaker_form, local: true) do |form| %>
+
+  <div class="field">
+    <%= form.label :name %>
+    <%= form.text_field :name %>
+  </div>
+
+  <%= form.fields_for :talks do |talk| %>
+    <div class="field">
+      <%= talk.label :title %>
+      <%= talk.text_field :title %>
+    </div>
+  <% end %>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

@@ -8,12 +8,12 @@ Rails.application.routes.draw do
 
   resources :registered_talks
   resources :talks
-  resources :conferences
+  resources :conferences, param: :abbr
   scope ":event" do
     get 'dashboard' => 'dashboard#show'
     post 'auth/auth0' => redirect('/auth/auth0')
-    resources :profiles, only: [:new, :show, :edit, :update, :create]
-    get 'registration' => 'profiles#new'
+    resources :speakers, only: [:new, :show, :edit, :update, :create]
+    get 'registration' => 'speakers#new'
     get '/' => 'event#show'
   end
 end

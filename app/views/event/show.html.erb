@@ -1,9 +1,9 @@
 <h1><%= @conference.name %></h1>
 
 <% if logged_in? && registered? %>
-  Welcome, <%= @profile.first_name %>
+  Welcome, <%= @speaker.name %>
 
-  <%= link_to 'Edit Profile', edit_profile_path(id: @profile.id) %>
+  <%= link_to 'Edit Profile', edit_speaker_path(id: @speaker.id) %>
 <% end %>
 
 <% unless @current_user %>

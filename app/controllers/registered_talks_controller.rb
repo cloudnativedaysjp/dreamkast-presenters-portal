@@ -69,6 +69,6 @@ class RegisteredTalksController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def registered_talk_params
-      params.require(:registered_talk).permit(:profile_id, :talk_id)
+      params.require(:registered_talk).permit(:speaker_id, :talk_id)
     end
 end

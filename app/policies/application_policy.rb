@@ -1,8 +1,8 @@
 class ApplicationPolicy
-  attr_reader :profile, :record
+  attr_reader :speaker, :record
 
-  def initialize(profile, record)
-    @profile = profile
+  def initialize(speaker, record)
+    @speaker = speaker
     @record = record
   end
 
@@ -35,10 +35,10 @@ class ApplicationPolicy
   end
 
   class Scope
-    attr_reader :profile, :scope
+    attr_reader :speaker, :scope
 
-    def initialize(profile, scope)
-      @profile = profile
+    def initialize(speaker, scope)
+      @speaker = speaker
       @scope = scope
     end
 

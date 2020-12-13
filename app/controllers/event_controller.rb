@@ -16,9 +16,9 @@ class EventController < ApplicationController
 
   private
 
-  # def set_profile
+  # def set_speaker
   #   if @current_user
-  #     @profile = Profile.find_by(email: @current_user[:info][:email])
+  #     @speaker = Speaker.find_by(email: @current_user[:info][:email])
   #   end
   # end
 end

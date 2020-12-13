@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @speaker.name %>
+</p>
+
+<p>
+  <strong>Email:</strong>
+  <%= @speaker.email %>
+</p>
+
+<%= link_to 'Edit', "/#{@conference.abbr}/speakers/#{@speaker.id}" %> |
+<%= link_to 'Back', dashboard_path %>

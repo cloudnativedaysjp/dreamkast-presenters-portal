@@ -12,7 +12,7 @@ info:
 host: "petstore.swagger.io"
 basePath: "/v2"
 tags:
-  - name: "profile"
+  - name: "speaker"
     description: "Operations about user"
     externalDocs:
       description: "Find out more about our store"
@@ -21,10 +21,10 @@ schemes:
   - "https"
   - "http"
 paths:
-  /{event_name}/profiles:
+  /{event_name}/speakers:
     post:
       tags:
-        - "profile"
+        - "speaker"
       summary: "Create user"
       produces:
         - "application/json"
@@ -33,17 +33,17 @@ paths:
           description: "successful operation"
     get:
       tags:
-        - "profile"
+        - "speaker"
       summary: "Get users"
       produces:
         - "application/json"
       responses:
         default:
           description: "successful operation"
-  /{event_name}/profiles/{id}:
+  /{event_name}/speakers/{id}:
     get:
       tags:
-        - "profile"
+        - "speaker"
       summary: "Get user"
       produces:
         - "application/json"
@@ -58,7 +58,7 @@ paths:
           description: "User not found"
     put:
       tags:
-        - "profile"
+        - "speaker"
       summary: "Update user"
       produces:
         - "application/json"
@@ -67,7 +67,7 @@ paths:
           description: "successful operation"
     delete:
       tags:
-        - "profile"
+        - "speaker"
       summary: "Delete user"
       produces:
         - "application/json"
