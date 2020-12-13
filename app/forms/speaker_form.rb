@@ -50,6 +50,9 @@ class SpeakerForm
 
   def initialize(attributes = nil, speaker: Speaker.new)
     @speaker = speaker
+    if @speaker.talks.size == 0
+      @speaker.talks = [Talk.new]
+    end
     attributes ||= default_attributes
     super(attributes)
   end

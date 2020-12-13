@@ -23,6 +23,7 @@ class SpeakersController < ApplicationController
   def new
     @speaker_form = SpeakerForm.new
     @conference = Conference.find_by(abbr: params[:event])
+    @speaker_form.load
   end
 
   # GET /speakers/1/edit
@@ -32,8 +33,6 @@ class SpeakersController < ApplicationController
 
     @speaker_form = SpeakerForm.new(speaker: @speaker)
     @speaker_form.load
-
-    p @speaker_form.persisted?
 
     @conference = Conference.find_by(abbr: params[:event])
   end
@@ -88,16 +87,6 @@ class SpeakersController < ApplicationController
       format.json { head :no_content }
     end
   end
-
-  def url(conference, speaker)
-    case action_name
-    when 'new'
-      "/#{conference.abbr}/speakers"
-    when 'edit'
-      "/#{conference.abbr}/speakers/#{speaker.id}"
-    end
-  end
-  helper_method :url
 
   def speaker_url
     case action_name
