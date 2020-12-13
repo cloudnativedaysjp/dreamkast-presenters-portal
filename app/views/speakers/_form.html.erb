@@ -12,6 +12,10 @@
     </div>
   <% end %>
 
+  <div class="field">
+    <%= form.hidden_field :conference_id, value: @conference.id %>
+  </div>
+
   <div class="actions">
     <%= form.submit %>
   </div>

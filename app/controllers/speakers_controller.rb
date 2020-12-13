@@ -40,10 +40,11 @@ class SpeakersController < ApplicationController
   # POST /speakers
   # POST /speakers.json
   def create
-    @speaker_form = SpeakerForm.new(speaker_params)
+    @conference = Conference.find_by(abbr: params[:event])
+
+    @speaker_form = SpeakerForm.new(speaker_params, speaker: Speaker.new())
     @speaker_form.sub = @current_user[:extra][:raw_info][:sub]
     @speaker_form.email = @current_user[:info][:email]
-    @conference = Conference.find_by(abbr: params[:event])
 
     respond_to do |format|
       if @speaker_form.save
@@ -111,6 +112,7 @@ class SpeakersController < ApplicationController
     params.require(:speaker).permit(:name,
                                     :sub,
                                     :email,
-                                    talks_attributes: [:id, :title, :abstract])
+                                    :conference_id,
+                                    talks_attributes: [:id, :title, :abstract, :conference_id])
   end
 end

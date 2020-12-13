@@ -6,6 +6,7 @@ class SpeakerForm
   attr_accessor :name,
                 :email,
                 :sub,
+                :conference_id,
                 :talks
 
   delegate :persisted?, to: :speaker
@@ -65,10 +66,11 @@ class SpeakerForm
     return if invalid?
 
     ActiveRecord::Base.transaction do
-      speaker.update!(name: name, sub: sub, email: email)
+      puts "conference_id #{conference_id}"
+      speaker.update!(name: name, sub: sub, email: email, conference_id: conference_id)
     end
   rescue => e
-    puts e
+    puts "faild to save: #{e}"
     false
   end
 

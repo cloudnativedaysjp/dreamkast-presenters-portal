@@ -36,14 +36,15 @@ ActiveRecord::Schema.define(version: 2020_12_06_055011) do
     t.string "twitter_id"
     t.string "github_id"
     t.string "email"
+    t.bigint "conference_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["conference_id"], name: "index_speakers_on_conference_id"
   end
 
   create_table "talks", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.string "title"
     t.string "abstract"
-    t.integer "conference_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
