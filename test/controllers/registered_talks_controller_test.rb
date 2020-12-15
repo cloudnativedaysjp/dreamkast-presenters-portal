@@ -1,12 +1,12 @@
 require 'test_helper'
 
-class RegisteredTalksControllerTest < ActionDispatch::IntegrationTest
+class TalksSpeakersControllerTest < ActionDispatch::IntegrationTest
   setup do
-    @registered_talk = registered_talks(:one)
+    @registered_talk = talks_speakers(:one)
   end
 
   test "should get index" do
-    get registered_talks_url
+    get talks_speakers_url
     assert_response :success
   end
 
@@ -17,7 +17,7 @@ class RegisteredTalksControllerTest < ActionDispatch::IntegrationTest
 
   test "should create registered_talk" do
     assert_difference('RegisteredTalk.count') do
-      post registered_talks_url, params: { registered_talk: { speaker_id: @registered_talk.speaker_id, talk_id: @registered_talk.talk_id } }
+      post talks_speakers_url, params: { registered_talk: { speaker_id: @registered_talk.speaker_id, talk_id: @registered_talk.talk_id } }
     end
 
     assert_redirected_to registered_talk_url(RegisteredTalk.last)
@@ -43,6 +43,6 @@ class RegisteredTalksControllerTest < ActionDispatch::IntegrationTest
       delete registered_talk_url(@registered_talk)
     end
 
-    assert_redirected_to registered_talks_url
+    assert_redirected_to talks_speakers_url
   end
 end

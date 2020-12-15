@@ -6,7 +6,6 @@ Rails.application.routes.draw do
   get 'auth/failure' => 'auth0#failure'
   get 'logout' => 'logout#logout'
 
-  resources :registered_talks
   resources :talks
   resources :conferences, param: :abbr
   scope ":event" do

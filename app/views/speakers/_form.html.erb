@@ -5,12 +5,19 @@
     <%= form.text_field :name %>
   </div>
 
-  <%= form.fields_for :talks do |talk| %>
-    <div class="field">
-      <%= talk.label :title %>
-      <%= talk.text_field :title %>
-    </div>
+  <p>Talks:</p>
+  <div class="talk-fields">
+    <%= form.fields_for :talks do |talk| %>
+      <%= render 'speakers/talk_fields', :f => talk %>
+    <% end %>
+  </div>
+
+  <% if  action_name == "new" || form.object.talks.size < 3 %>
+    <p><%= link_to_add_talk_fields "Add Talk", form, :talks, class: 'add-talk btn btn-primary' %></p>
+  <% else %>
+    <p><%= link_to_add_talk_fields "Add Talk", form, :talks, class: 'add-talk btn btn-primary', style: "display: none" %></p>
   <% end %>
+
 
   <div class="field">
     <%= form.hidden_field :conference_id, value: @conference.id %>

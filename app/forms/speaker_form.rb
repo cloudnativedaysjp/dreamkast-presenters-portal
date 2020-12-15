@@ -15,7 +15,7 @@ class SpeakerForm
     attr_accessor :talks
 
     def talks
-      @talks ||= [Talk.new]
+      @talks ||= []
     end
 
     def talks_attributes=(attributes)
@@ -23,8 +23,10 @@ class SpeakerForm
       attributes.each do |_i, params|
         if params.key?(:id)
           if params[:_destroy] == "1"
-            image = @speaker.talks.find(params[:id])
-            image.destroy
+            talk = @speaker.talks.find(params[:id])
+            talks_speaker = TalksSpeaker.find_by(speaker_id: @speaker.id, talk_id: talk.id)
+            talks_speaker.destroy
+            talk.destroy
           else
             params.delete(:_destroy)
             image = @speaker.talks.find(params[:id])
@@ -35,7 +37,7 @@ class SpeakerForm
           talk = Talk.new(params)
           talk.save!
           begin
-            rtalk = RegisteredTalk.new(talk_id: talk.id, speaker_id: @speaker.id)
+            rtalk = TalksSpeaker.new(talk_id: talk.id, speaker_id: @speaker.id)
             rtalk.save!
           rescue => e
             puts e
@@ -51,9 +53,6 @@ class SpeakerForm
 
   def initialize(attributes = nil, speaker: Speaker.new)
     @speaker = speaker
-    if @speaker.talks.size == 0
-      @speaker.talks = [Talk.new]
-    end
     attributes ||= default_attributes
     super(attributes)
   end

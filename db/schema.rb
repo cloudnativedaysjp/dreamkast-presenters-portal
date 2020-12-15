@@ -20,13 +20,6 @@ ActiveRecord::Schema.define(version: 2020_12_06_055011) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  create_table "registered_talks", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
-    t.integer "speaker_id"
-    t.integer "talk_id"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-  end
-
   create_table "speakers", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.string "name"
     t.string "sub"
@@ -45,6 +38,13 @@ ActiveRecord::Schema.define(version: 2020_12_06_055011) do
   create_table "talks", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.string "title"
     t.string "abstract"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "talks_speakers", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
+    t.integer "speaker_id"
+    t.integer "talk_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end

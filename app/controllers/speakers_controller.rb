@@ -113,6 +113,6 @@ class SpeakersController < ApplicationController
                                     :sub,
                                     :email,
                                     :conference_id,
-                                    talks_attributes: [:id, :title, :abstract, :conference_id])
+                                    talks_attributes: [:id, :title, :abstract, :conference_id, :_destroy])
   end
 end
