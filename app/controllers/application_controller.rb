@@ -12,8 +12,15 @@ class ApplicationController < ActionController::Base
     render template: 'errors/error_404', status: 404, layout: 'application', content_type: 'text/html'
   end
 
+  helper_method :home_controller?, :registered?, :logged_in?, :event_name
 
-  helper_method :registered?, :logged_in?
+  def home_controller?
+    controller_name == "home"
+  end
+
+  def event_name
+    params[:event]
+  end
 
   def logged_in?
     session[:userinfo].present?

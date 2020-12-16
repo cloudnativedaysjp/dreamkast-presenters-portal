@@ -11,6 +11,10 @@
   </head>
 
   <body>
-    <%= yield %>
+  <% unless home_controller? %>
+    <%= render partial: "layouts/header" %>
+  <% end %>
+
+  <%= yield %>
   </body>
 </html>
