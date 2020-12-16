@@ -11,8 +11,8 @@ Rails.application.routes.draw do
   scope ":event" do
     get 'dashboard' => 'dashboard#show'
     post 'auth/auth0' => redirect('/auth/auth0')
+    get '/speakers/registration' => 'speakers#new'
     resources :speakers, only: [:new, :show, :edit, :update, :create]
-    get 'registration' => 'speakers#new'
     get '/' => 'event#show'
   end
 end

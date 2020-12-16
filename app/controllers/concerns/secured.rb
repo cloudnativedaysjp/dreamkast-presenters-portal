@@ -16,8 +16,8 @@ module Secured
       redirect_to "/auth/auth0"
     end
 
-    if new_user? && !speakers_new? && !speakers_create?
-      redirect_to "/#{params[:event]}/registration"
+      if new_user? && !speakers_new? && !speakers_create?
+      redirect_to "/#{params[:event]}/speakers/registration"
     end
   end
 
