@@ -1,9 +1,0 @@
-Dashboard!!!
-
-<h1><%= @conference.name %></h1>
-
-Welcome, <%= @speaker.name %>
-
-<%= button_to 'Logout', '/logout', {method: :get, class: "btn btn-primary btn-xl inline" } %>
-
-<%= link_to 'Edit Profile', edit_speaker_path(id: @speaker.id) %>
