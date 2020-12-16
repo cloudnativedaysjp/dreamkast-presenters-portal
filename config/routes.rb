@@ -9,7 +9,6 @@ Rails.application.routes.draw do
   resources :talks
   resources :conferences, param: :abbr
   scope ":event" do
-    get 'dashboard' => 'dashboard#show'
     post 'auth/auth0' => redirect('/auth/auth0')
     get '/speakers/registration' => 'speakers#new'
     resources :speakers, only: [:new, :show, :edit, :update, :create]
