@@ -1,20 +1,20 @@
 require "application_system_test_case"
 
-class RegisteredTalksTest < ApplicationSystemTestCase
+class TalksSpeakersTest < ApplicationSystemTestCase
   setup do
-    @registered_talk = registered_talks(:one)
+    @registered_talk = talks_speakers(:one)
   end
 
   test "visiting the index" do
-    visit registered_talks_url
+    visit talks_speakers_url
     assert_selector "h1", text: "Registered Talks"
   end
 
   test "creating a Registered talk" do
-    visit registered_talks_url
+    visit talks_speakers_url
     click_on "New Registered Talk"
 
-    fill_in "Profile", with: @registered_talk.profile_id
+    fill_in "Spea", with: @registered_talk.speaker_id
     fill_in "Talk", with: @registered_talk.talk_id
     click_on "Create Registered talk"
 
@@ -23,10 +23,10 @@ class RegisteredTalksTest < ApplicationSystemTestCase
   end
 
   test "updating a Registered talk" do
-    visit registered_talks_url
+    visit talks_speakers_url
     click_on "Edit", match: :first
 
-    fill_in "Profile", with: @registered_talk.profile_id
+    fill_in "Speaker", with: @registered_talk.speaker_id
     fill_in "Talk", with: @registered_talk.talk_id
     click_on "Update Registered talk"
 
@@ -35,7 +35,7 @@ class RegisteredTalksTest < ApplicationSystemTestCase
   end
 
   test "destroying a Registered talk" do
-    visit registered_talks_url
+    visit talks_speakers_url
     page.accept_confirm do
       click_on "Destroy", match: :first
     end

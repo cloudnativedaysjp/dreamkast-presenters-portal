@@ -1,14 +1,14 @@
 require 'rails_helper'
 
-describe ProfilesController, type: :request do
-  describe "GET /ev001/profiles/:id" do
+describe SpeakersController, type: :request do
+  describe "GET /ev001/speakers/:id" do
     before do
       create(:event_001)
     end
 
     describe 'not logged in' do
       it "redirect to event top page" do
-        get '/ev001/profiles/1'
+        get '/ev001/speakers/1'
         expect(response).to_not be_successful
         expect(response).to have_http_status '302'
         expect(response).to redirect_to '/auth/auth0'
@@ -24,7 +24,7 @@ describe ProfilesController, type: :request do
 
       describe 'not registered' do
         it "redirect to registration page" do
-          get '/ev001/profiles/1'
+          get '/ev001/speakers/1'
           expect(response).to_not be_successful
           expect(response).to have_http_status '302'
           expect(response).to redirect_to '/ev001/registration'
@@ -36,8 +36,8 @@ describe ProfilesController, type: :request do
           create(:alice)
         end
 
-        it "show profile page" do
-          get '/ev001/profiles/1'
+        it "show speaker page" do
+          get '/ev001/speakers/1'
           expect(response).to be_successful
           expect(response).to have_http_status '200'
         end

@@ -1,10 +1,10 @@
 FactoryBot.define do
-  factory :alice, class: Profile do
+  factory :alice, class: Speaker do
     id { 1 }
     # sub { 'aaa' }
     email { 'foo@example.com' }
-    last_name { 'aaa' }
-    first_name { 'Alice' }
+    name { 'Alice' }
+    conference_id { 1 }
     # industry_id { '1' }
     # occupation { 'aaa' }
     # company_name { 'aa' }

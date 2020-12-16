@@ -1,4 +1,4 @@
 class Talk < ApplicationRecord
-  has_many :registered_talks
-  has_many :profiles, through: :registered_talks
+  has_many :talks_speakers
+  has_many :speakers, through: :talks_speakers
 end
